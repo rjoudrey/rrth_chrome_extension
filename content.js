@@ -3,8 +3,8 @@ function markKnownCharacters(keywordForChar, element) {
         if (child.nodeType === 3) { // text node
             // Get the first known character in the node.
             var text = child.data;
-            var keyword = null;
-            var firstKnownIndex = -1;
+            var keyword = undefined;
+            var firstKnownIndex = null;
             for (var i = 0; i < text.length; i++) {
                 var char = text[i];
                 keyword = keywordForChar[char];
