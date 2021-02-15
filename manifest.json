@@ -7,5 +7,8 @@
   "background" : {
     "scripts" : ["background.js"]
   },
-  "permissions": ["activeTab"]
+  "permissions": ["activeTab"],
+  "web_accessible_resources": [
+    "known_list.txt"
+  ]
 }
