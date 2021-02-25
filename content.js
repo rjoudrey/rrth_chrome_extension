@@ -1,4 +1,9 @@
 function markKnownCharacters(keywordForChar, element) {
+    if (element.nodeName.toLowerCase() === 'span' && 
+        element.classList.contains('marked_known_class')) {
+        return; // skip nodes we created.
+    }
+
     for (var child = element.firstChild; child !== null; child = child.nextSibling) {
         if (child.nodeType === 3) { // text node
             // Get the first known character in the node.
@@ -26,7 +31,7 @@ function markKnownCharacters(keywordForChar, element) {
             // Create a span node to replace the current node.
             var spanNode = document.createElement('span');
             // Show an underline under the character.
-            spanNode.className = 'marked';
+            spanNode.className = 'marked_known_class';
             // Show the associated RRTH keyword when you hover over the character.
             spanNode.setAttribute("title", keyword);
 
@@ -45,25 +50,28 @@ function markKnownCharacters(keywordForChar, element) {
     }
 }
 
-const span_style=`
-.marked {
-  position: relative;
-}
-
-.marked:after {
-  content: '';
-  position: absolute;
-  left: 5%;
-  width: 90%;
-  display: block;
-  height: 1px;
-  background-color: #89CFF0;
-}
-`;
-
 function addStyles() {
-    var sheet = document.createElement('style')
-    sheet.innerHTML = span_style;
+    const spanStyle=`
+    .marked_known_class {
+      position: relative;
+    }
+
+    .marked_known_class:after {
+      content: '';
+      position: absolute;
+      left: 5%;
+      width: 90%;
+      display: block;
+      height: 1px;
+      background-color: #89CFF0;
+    }
+    `;
+    if (document.getElementById('marked_known_style')) {
+        return;
+    }
+    var sheet = document.createElement('style');
+    sheet.id = "marked_known_style";
+    sheet.innerHTML = spanStyle;
     document.body.appendChild(sheet);
 }
 
